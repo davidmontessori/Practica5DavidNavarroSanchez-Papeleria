@@ -12,24 +12,6 @@ public class Lapiz extends Producto{
 		this.tipoMina=tipoMina;
 		
 	}
-	
-	/**
-	 * 
-	 * Metodo String que devuelve el tipo de trazado que tiene el lapiz, según la dureza establecida.
-	 * En caso de no incluir una dureza correcta, el metodo delvera "Tipo de trazado no valido"
-	 * 
-	 * @return descripcion del tipo de trazado de la mina según la dureza establecida
-	 */
-
-	public String tipoTrazo() {
-	    if (dureza.equalsIgnoreCase("HB") || dureza.equalsIgnoreCase("H")) {
-	        return "Trazo suave";
-	    } else if (dureza.equalsIgnoreCase("2B") || dureza.equalsIgnoreCase("B")) {
-	        return "Trazo oscuro";
-	    } else {
-	        return "Tipo de trazo no valido";
-	    }
-	}
 
 
 	public String getTipoMina() {
