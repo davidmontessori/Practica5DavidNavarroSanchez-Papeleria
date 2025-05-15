@@ -1,0 +1,222 @@
+	package clases;
+	
+	import java.time.LocalDate;
+	import java.util.ArrayList;
+	import java.util.Iterator;
+	
+	public class GestorClases {
+		
+		private ArrayList<Bolis> listaBolis;
+		private ArrayList<Empleado> listaEmpleados;
+		private ArrayList<Lapiz> listaLapices;
+		private ArrayList <Producto> listaProductos;
+		private ArrayList<Proveedores> listaProveedores;
+		
+		
+		public GestorClases(){
+			listaBolis = new ArrayList<Bolis>();
+			listaEmpleados = new ArrayList<Empleado>();
+			listaLapices = new ArrayList<Lapiz>();
+			listaProductos = new ArrayList<Producto>();
+			listaProveedores = new ArrayList<Proveedores>();
+				
+		}
+		
+		
+		
+		public void	altaBoli(String nombre, double precio, String marca, Proveedores proveedor, boolean borrable, String color, String tipoTinta) {
+	
+		Bolis nuevoBoli = new Bolis(nombre, precio, marca, proveedor, borrable, color, tipoTinta);
+			listaBolis.add(nuevoBoli);
+		
+		
+		
+		}
+		
+		
+		public void altaEmpleado (String nombre, String puesto, double salario, String inicioContrato) {
+			Empleado nuevoEmpleado = new Empleado(nombre, puesto, salario);
+			/**
+			 * Para establecer un valor en inicioContrato, debemos inroducir la fecha en una variable String.
+			 * Parseamos la varibale String que contiene la fecha a un LocalDate
+			 */
+			nuevoEmpleado.setInicioContrato(LocalDate.parse(inicioContrato));
+			listaEmpleados.add(nuevoEmpleado);
+	 	
+		}
+		
+		public void altaLapiz (String nombre, double precio, String marca, Proveedores proveedor, String tipoMina, String dureza){
+			Lapiz nuevoLapiz = new Lapiz(nombre,precio, marca, proveedor, tipoMina, dureza);
+			listaLapices.add(nuevoLapiz);
+		}
+		
+		
+		public void altaProducto (String nombre, double precio, String marca, Proveedores proveedor) {
+			Producto nuevoProducto = new Producto (nombre, precio, marca, proveedor);
+			listaProductos.add(nuevoProducto);
+		}
+		
+		public void altaProveedor (String nombre, int telef, String direccion){
+			Proveedores nuevoProveedor = new Proveedores (nombre, telef, direccion);
+			listaProveedores.add(nuevoProveedor);	
+				
+			
+		}
+		
+		
+		
+		public void listarBolis() {
+			for (Bolis bolis : listaBolis) {
+					if(bolis != null) {
+						System.out.println(bolis);
+					}
+			}
+		}
+		
+		public void listarEmpleados() {
+			for(Empleado empleados : listaEmpleados) {
+				if(empleados!=null) {
+					System.out.println(empleados);
+				}
+			}
+		}
+		
+		public void listarLapices() {
+			for(Lapiz lapices : listaLapices) {
+				if(lapices !=null) {
+					System.out.println(lapices);
+					
+				}
+			}
+		}
+		
+		
+		public void listarProductos() {
+			for(Producto productos : listaProductos) {
+				if(productos != null) {
+					System.out.println(productos);
+				}
+			}
+		}
+		
+		public void listarProveedores() {
+			for(Proveedores proveedores : listaProveedores) {
+				if(proveedores != null) {
+					System.out.println(proveedores);
+				}
+			}
+		}
+		
+		
+		
+		public Bolis buscarBolis(String color) {
+			for (Bolis bolis: listaBolis) {
+				if(bolis != null && bolis.getColor().equalsIgnoreCase(color)) {
+					return bolis;
+					
+				}
+				
+			}
+			return null;
+		}
+	
+		
+		public Empleado buscarEmpleado (String nombre) {
+			for (Empleado empleados : listaEmpleados) {
+				if(empleados != null && empleados.getNombre().equalsIgnoreCase(nombre)) {
+					return empleados;
+				}
+			}
+			return null;
+		}
+		
+		
+		public Lapiz buscarLapiz (String dureza) {
+			for (Lapiz lapices : listaLapices) {
+				if (lapices != null && lapices.getDureza().equalsIgnoreCase(dureza)) {
+					return lapices;
+				}
+			}
+			return null;
+		}
+		
+		
+		public Producto buscarProducto (String marca) {
+			for (Producto productos : listaProductos) {
+				if (productos != null && productos.getMarca().equalsIgnoreCase(marca)) {
+					return productos;
+				}
+			}
+			return null;
+		}
+		
+		public Proveedores buscarProveedor (int telef) {
+			for (Proveedores proveedor : listaProveedores) {
+				 if (proveedor != null && proveedor.getTelef() == telef){
+					 return proveedor;
+					 }
+				 }
+			
+			return null;
+			
+		}
+		
+		
+		public void eliminarBoli (boolean borrable) {
+			Iterator<Bolis> iteradorBolis = listaBolis.iterator();
+			while (iteradorBolis.hasNext()) {
+				Bolis boli = iteradorBolis.next();
+				if (boli.isBorrable()) {
+					iteradorBolis.remove();
+				}
+			}
+		}
+		
+	
+		public void eliminarEmpleado (String nombre) {
+			Iterator<Empleado> iteradorEmpleado = listaEmpleados.iterator();
+			while (iteradorEmpleado.hasNext()) {
+				Empleado empleado = iteradorEmpleado.next();
+				if (empleado.getNombre().equalsIgnoreCase(nombre)) {
+					iteradorEmpleado.remove();
+				}
+			}
+		}
+		
+		
+		public void eliminarLapiz (String tipoMina) {
+			Iterator<Lapiz> iteratorLapiz = listaLapices.iterator();
+			while(iteratorLapiz.hasNext()) {
+				Lapiz lapiz = iteratorLapiz.next();
+				if(lapiz.getTipoMina().equalsIgnoreCase(tipoMina)) {
+					iteratorLapiz.remove();
+				}
+				
+			}
+		}
+		
+		
+		public void elminarProducto (String nombreProveedor) {
+			Iterator<Producto> iteratorProducto = listaProductos.iterator();
+			while(iteratorProducto.hasNext()) {
+				Producto producto = iteratorProducto.next();
+				if(producto.getProveedor().getNombre().equalsIgnoreCase(nombreProveedor)) {
+					iteratorProducto.remove();
+				}
+			}
+		
+		}
+	
+		
+		public void eliminarProveedor (int telefono) {
+			Iterator<Proveedores> iteratorProveedor = listaProveedores.iterator();
+			while (iteratorProveedor.hasNext()) {
+				Proveedores proveedor = iteratorProveedor.next();
+				if(proveedor.getTelef()==telefono) {
+					iteratorProveedor.remove();
+				}
+			}
+		}
+		
+	
+	}

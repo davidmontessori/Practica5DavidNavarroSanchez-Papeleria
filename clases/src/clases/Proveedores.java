@@ -1,17 +1,21 @@
 package clases;
 
+import java.util.ArrayList;
+
 public class Proveedores {
 	
 	private String nombre;
 	private int telef;
 	private String direccion;
+    protected ArrayList<Producto> listaProductos; 
+
 	
 	
 	public Proveedores (String nombre, int telef, String direccion){
 		this.direccion=direccion;
 		this.nombre=nombre;
 		this.telef=telef;
-		
+		this.listaProductos = new ArrayList<Producto>();
 	}
 
 

@@ -1,0 +1,244 @@
+package clases;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class GestorClases {
+
+	private ArrayList<Empleado> listaEmpleados;
+	private ArrayList<Producto> listaProductos;
+	private ArrayList<Proveedores> listaProveedores;
+
+	public GestorClases() {
+		listaEmpleados = new ArrayList<Empleado>();
+		listaProductos = new ArrayList<Producto>();
+		listaProveedores = new ArrayList<Proveedores>();
+
+	}
+
+	// alta productos
+
+	public void altaProducto(String nombre, double precio, String marca, Proveedores proveedor, boolean borrable,
+			String color, String tipoTinta) {
+
+		Bolis nuevoBoli = new Bolis(nombre, precio, marca, proveedor, borrable, color, tipoTinta);
+		listaProductos.add(nuevoBoli);
+
+	}
+
+	public void altaProducto(String nombre, double precio, String marca, Proveedores proveedor, String tipoMina,
+			String dureza) {
+		listaProductos.add(new Lapiz(nombre, precio, marca, proveedor, tipoMina, dureza));
+	}
+
+	public void altaEmpleado(String nombre, String puesto, double salario, String inicioContrato) {
+		Empleado nuevoEmpleado = new Empleado(nombre, puesto, salario, inicioContrato);
+		/**
+		 * Para establecer un valor en inicioContrato, debemos inroducir la fecha en una
+		 * variable String. Parseamos la varibale String que contiene la fecha a un
+		 * LocalDate
+		 */
+		nuevoEmpleado.setInicioContrato(LocalDate.parse(inicioContrato));
+		listaEmpleados.add(nuevoEmpleado);
+
+	}
+
+	public void altaProveedor(String nombre, int telef, String direccion) {
+		Proveedores nuevoProveedor = new Proveedores(nombre, telef, direccion);
+		listaProveedores.add(nuevoProveedor);
+
+	}
+
+	// lista
+
+	public void listarEmpleados() {
+		for (Empleado empleados : listaEmpleados) {
+			if (empleados != null) {
+				System.out.println(empleados);
+			}
+		}
+	}
+
+	public void listarProductos() {
+		for (Producto productos : listaProductos) {
+			if (productos != null) {
+				System.out.println(productos);
+			}
+		}
+	}
+
+	public void listarProveedores() {
+		for (Proveedores proveedores : listaProveedores) {
+			if (proveedores != null) {
+				System.out.println(proveedores);
+			}
+		}
+	}
+
+	// buscar
+
+	public Empleado buscarEmpleado(String nombre) {
+		for (Empleado empleados : listaEmpleados) {
+			if (empleados != null && empleados.getNombre().equalsIgnoreCase(nombre)) {
+				return empleados;
+			}
+		}
+		return null;
+	}
+
+	public Producto buscarProducto(String nombre, String marca) {
+		for (Producto productos : listaProductos) {
+			if (productos != null && productos.getNombre().equalsIgnoreCase(nombre)
+					&& productos.getMarca().equalsIgnoreCase(marca)) {
+				return productos;
+			}
+		}
+		return null;
+	}
+
+	public Proveedores buscarProveedor(int telef) {
+		for (Proveedores proveedor : listaProveedores) {
+			if (proveedor != null && proveedor.getTelef() == telef) {
+				return proveedor;
+			}
+		}
+
+		return null;
+
+	}
+
+	// eliminar
+
+	public void eliminarEmpleado(String nombre) {
+		Iterator<Empleado> iteradorEmpleado = listaEmpleados.iterator();
+		while (iteradorEmpleado.hasNext()) {
+			Empleado empleado = iteradorEmpleado.next();
+			if (empleado.getNombre().equalsIgnoreCase(nombre)) {
+				iteradorEmpleado.remove();
+			}
+		}
+	}
+
+	public void elminarProducto(String nombre, String marca) {
+		Iterator<Producto> iteratorProducto = listaProductos.iterator();
+		while (iteratorProducto.hasNext()) {
+			Producto producto = iteratorProducto.next();
+			if (producto.getNombre().equalsIgnoreCase(nombre) && producto.getMarca().equalsIgnoreCase(marca)) {
+				iteratorProducto.remove();
+			}
+		}
+
+	}
+
+	public void eliminarProveedor(int telefono) {
+		Iterator<Proveedores> iteratorProveedor = listaProveedores.iterator();
+		while (iteratorProveedor.hasNext()) {
+			Proveedores proveedor = iteratorProveedor.next();
+			if (proveedor.getTelef() == telefono) {
+				iteratorProveedor.remove();
+			}
+		}
+	}
+	
+	
+	//insertar un prodcuto en un proveedor
+	
+		public void introducirProductoProveedor(String nombreProducto, String marcaProducto, String nombreProveedor) {
+		if (existeProducto(nombreProducto, marcaProducto)) {
+			if (existeProveedor(nombreProveedor)) {
+					devuelveProveedor(nombreProveedor).listaProductos.add(devuelveProducto(nombreProducto, marcaProducto));
+			} else {
+				System.out.println("El proveedor no existe");
+			} 
+		} else {
+			System.out.println("El producto no existe");
+		}
+	}
+
+	// existe
+
+	/**
+	 * metodo existeProducto que se usa para verificar si un producto está en
+	 * listaProductos.
+	 * 
+	 * Parametros nombre y marca para mayor especificación
+	 * 
+	 * @param nombre
+	 * @param marca
+	 * @return true en caso de existir. false en caso contrario
+	 */
+
+	public boolean existeProducto(String nombre, String marca) {
+		for (Producto productos : listaProductos) {
+			if (productos.getNombre().equalsIgnoreCase(nombre) && 
+					(productos.getMarca().equalsIgnoreCase(marca))) {
+				return true;
+
+			}
+		}
+
+		return false;
+
+		
+		
+	}
+
+	public boolean existeProveedor(String nombre) {
+		for (Proveedores proveedor : listaProveedores) {
+			if(proveedor.getNombre().equalsIgnoreCase(nombre)) {
+				return true;
+
+			}
+		}
+
+	return false;
+
+}
+	
+	
+	//devuelve
+	
+	
+	
+	/**
+	 * metodo devuelveProducto que busca un producto en el ArrayList listaProductos
+	 * en caso de encontarlo, el metodo devuelve el objeto con todos sus atributos.
+	 * en caso contrario, devuelve null.
+	 * 
+	 * Parametros nombre y marca para mayor especificacion a la hora de buscar el producto.
+	 * @param nombre
+	 * @param marca
+	 * @return producto, en caso de encontrarlo. null si no hay ningun objeto en el ArrayList que coincida con los parametros dados.
+	 */
+	
+	public Producto devuelveProducto(String nombre, String marca) {
+		for (Producto producto : listaProductos) {
+			if (producto.getNombre().equalsIgnoreCase(nombre) &&
+					producto.getMarca().equalsIgnoreCase(marca)) {
+				return producto;
+			}
+		}
+		
+		return null;
+		
+		
+	}
+	
+	
+	public Proveedores devuelveProveedor(String nombre) {
+		for (Proveedores proveedor : listaProveedores) {
+			if (proveedor.getNombre().equalsIgnoreCase(nombre)) {
+				return proveedor;
+						
+			}
+		}
+		
+		
+		return null;
+		
+		
+	}
+
+
+}

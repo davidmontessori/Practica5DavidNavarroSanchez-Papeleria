@@ -1,11 +1,11 @@
 package clases;
 
 
-public class Producto {
+public abstract class Producto {
 	private String nombre;
 	private double precio;
 	private String marca;
-	Proveedores proveedor;
+	private Proveedores proveedor;
 	
 	
 	
@@ -17,8 +17,7 @@ public class Producto {
 	}
 	
 	
-	
-	
+		
 	
 	
 	/**
@@ -36,6 +35,11 @@ public class Producto {
 	    return false;
 	}
 
+	
+
+	//metodo abstracto que deberan todas las subclases
+	
+	public abstract boolean esPremium();
 	
 	
 

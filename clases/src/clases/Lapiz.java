@@ -30,6 +30,21 @@ public class Lapiz extends Producto{
 	        return "Tipo de trazo no valido";
 	    }
 	}
+	
+	
+	@Override
+	public boolean esPremium() {
+		if(this.tipoMina.equalsIgnoreCase("artistico") && 
+				this.getPrecio() >= 4) {
+			return true;
+			
+		}
+		
+		else {
+			return false;
+
+		}
+	}
 
 
 	public String getTipoMina() {
@@ -54,7 +69,7 @@ public class Lapiz extends Producto{
 
 	@Override
 	public String toString() {
-		return "Lapiz [tipoMina=" + tipoMina + ", dureza=" + dureza + "]";
+		return super.toString() + "Lapiz [tipoMina=" + tipoMina + ", dureza=" + dureza + "]";
 	}
 	
 	

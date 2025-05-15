@@ -6,7 +6,8 @@ public class Bolis extends Producto {
 	private String color;
 	private String tipoTinta;
 
-	public Bolis(String nombre, double precio, String marca, Proveedores proveedor, boolean borrable, String color, String tipoTinta) {
+	public Bolis(String nombre, double precio, String marca, Proveedores proveedor, boolean borrable, String color,
+			String tipoTinta) {
 		super(nombre, precio, marca, proveedor);
 		this.borrable = borrable;
 		this.color = color;
@@ -20,19 +21,31 @@ public class Bolis extends Producto {
 			return "Escritura permanente con tinta de tipo " + tipoTinta;
 		}
 	}
-	
-	
-	
+
 	/**
-	 * Sobreescribimos el metodo getPrecio de la clase Producto.
-	 * Los bolis tendrán un descuento del 10%, por lo que multiplicamos por 0.90 para quedarnos con el 90% del valor.
+	 * Sobreescribimos el metodo getPrecio de la clase Producto. Los bolis tendrán
+	 * un descuento del 10%, por lo que multiplicamos por 0.90 para quedarnos con el
+	 * 90% del valor.
+	 * 
 	 * @return precio con el descuento aplicado
 	 */
 	@Override
 	public double getPrecio() {
-	    return super.getPrecio() * 0.90;
+		return super.getPrecio() * 0.90;
 	}
 
+	@Override
+	public boolean esPremium() {
+		if (this.tipoTinta.equalsIgnoreCase("gel") && this.getPrecio() >= 4) {
+			return true;
+
+		}
+
+		else {
+			return false;
+
+		}
+	}
 
 	public boolean isBorrable() {
 		return borrable;
@@ -60,7 +73,10 @@ public class Bolis extends Producto {
 
 	@Override
 	public String toString() {
-		return "Bolis [borrable=" + borrable + ", color=" + color + ", tipoTinta=" + tipoTinta + "]";
+
+		return super.toString() + ", Bolis [borrable=" + borrable + ", color=" + color + ", tipoTinta=" + tipoTinta
+				+ "]";
+
 	}
 
 }

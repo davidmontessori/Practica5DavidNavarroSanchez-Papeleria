@@ -10,10 +10,20 @@ public class Empleado {
 	private LocalDate inicioContrato;
 	
 	
-	public Empleado(String nombre, String puesto, double salario) {
+	public Empleado() {
+		this.nombre="Nuevo Empleado";
+		this.puesto= "Puesto predeterminado";
+		this.salario=1000;
+		
+		
+	}
+	
+	
+	public Empleado(String nombre, String puesto, double salario, String inicioContrato) {
 		this.nombre=nombre;
 		this.puesto=puesto;
 		this.salario=salario;
+		this.inicioContrato = LocalDate.parse(inicioContrato);
 		
 	}
 
